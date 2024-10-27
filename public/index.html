@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма передачи проекта</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+</head>
+<body>
+    <div class="title-banner">
+        <h1>Форма передачи проекта</h1>
+    </div>
+    <div class="container">
+        <form id="orderForm">
+            <!-- Твой логин в Telegram -->
+            <div class="form-group">
+                <label for="telegram_login">1. Твой логин в Telegram:</label>
+                <input type="text" id="telegram_login" name="telegram_login" required>
+            </div>
+
+            <!-- Имя клиента -->
+            <div class="form-group">
+                <label for="client_name">2. Имя клиента:</label>
+                <input type="text" id="client_name" name="client_name" required>
+            </div>
+
+            <!-- Площадка для размещения -->
+            <div class="form-group">
+                <label>3. Площадка для размещения:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="platform" value="gallery"> Товарная галерея</label>
+                    <label><input type="checkbox" name="platform" value="smart_banners"> Смарт-баннеры</label>
+                    <label><input type="checkbox" name="platform" value="ozon"> Ozon</label>
+                    <label><input type="checkbox" name="platform" value="wildberries"> Wildberries</label>
+                    <label><input type="checkbox" name="platform" value="website"> Веб-сайт</label>
+                </div>
+            </div>
+            <!-- Тип графики -->
+            <div class="form-group">
+                <label>4. Тип графики:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="graphics_type" value="static"> Статичные баннеры</label>
+                    <label id="videoBannerOption">
+                        <input type="checkbox" name="graphics_type" value="video"> Видео-баннеры
+                        <span class="tooltip">
+                            <span class="info-icon">ℹ️</span>
+                            <span class="tooltiptext">Формат не поддерживается товарной галереей Яндекс</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <!-- Размер баннеров -->
+            <div class="form-group">
+                <label>5. Размер баннеров:</label>
+                <div id="bannerSizes" class="checkbox-group">
+                    <label><input type="checkbox" name="banner_sizes" value="1:1"> 1:1</label>
+                    <label><input type="checkbox" name="banner_sizes" value="3:4"> 3:4</label>
+                    <label><input type="checkbox" name="banner_sizes" value="4:3"> 4:3</label>
+                    <label><input type="checkbox" name="banner_sizes" value="16:9"> 16:9</label>
+                </div>
+            </div>
+            <!-- Ссылка на фид или другой источник данных -->
+            <div class="form-group">
+                <label>6. Ссылка на фид или другой источник данных:</label>
+                <input type="url" name="data_source" id="dataSource" placeholder="https://example.com/feed.xml" required>
+                <div class="note">
+                    <p>Проверьте фид на соответствие требованиям. <a href="https://slavahor.notion.site/12cc0eacb20380c6985ced80b291ab9f?pvs=4" target="_blank">Подробнее о требованиях к фиду</a></p>
+                </div>
+            </div>
+            <!-- Пункт 5: Отметить, из каких тегов берутся значения -->
+            <div id="tagSelection" class="form-group hidden">
+                <label>Отметьте, из каких тегов берутся значения и для каких параметров в макете дизайна:</label>
+                <div id="tagPairsContainer">
+                    <div class="tag-pair">
+                        <div class="tag-inputs">
+                            <input type="text" class="tag-name" placeholder="Тег из фида (например, <model>)" required>
+                            <input type="text" class="tag-usage" placeholder="Элемент дизайна (например, "Текстовый слой модель товара")" required>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" id="addTagPair" class="add-pair-btn">+ Добавить еще</button>
+            </div>
+            <!-- Пункт 6: Какие товары берем -->
+            <div id="productSelection" class="form-group hidden">
+                <label>Какие товары берем:</label>
+                <textarea name="product_filter" placeholder="Укажите ID категорий или условия для фильтра..."></textarea>
+            </div>
+            <!-- Пункт 7 -->
+            <div class="form-group">
+                <label>7. Фид обновляемый?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="feed_update" value="yes"> Да</label>
+                    <label><input type="radio" name="feed_update" value="no"> Нет</label>
+                </div>
+                <div class="note">
+                    <p>«Фабрика» создаст копию оригинального фида (с измененной ссылкой), в которой будут добавлены ссылки на баннеры с инфографикой. Если в оригинальном фиде добавляются новые товары или изменяются характеристики — автоматически генерируются баннеры с изменениями</p>
+                </div>
+            </div>
+            <!-- Пункт 8: Выбор макета -->
+            <div class="form-group">
+                <label>8. Выбор макета:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="layout_choice" value="client"> Макет на стороне заказчика</label>
+                    <label><input type="radio" name="layout_choice" value="factory"> Макет на стороне Фабрики</label>
+                </div>
+            </div>
+            <!-- Если макет на стороне заказчика -->
+            <div id="clientLayout" class="form-group hidden">
+                <label>Ссылка на макет:</label>
+                <input type="url" name="layout_link" placeholder="https://www.figma.com/...">
+                <div class="note">
+                    <p>Убедитесь, что макет соответствует требован��я�� к дизайну. <a href="https://slavahor.notion.site/12cc0eacb20380ef884aee0ebb4d1e26?pvs=4" target="_blank">Подробнее о требованиях к макету</a></p>
+                </div>
+            </div>
+            <!-- Если макет на стороне Фабрики -->
+            <div id="factoryLayout" class="form-group hidden">
+                <label>Техническое задание:</label>
+                <textarea id="technicalTask" placeholder="Опишите ваши требования к макету..."></textarea>
+            </div>
+            <!-- Пункт 9: Как передавать обложки -->
+            <div id="coverDelivery" class="form-group hidden">
+                <label>9. Как передавать обложки:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="cover_transfer" value="archive"> Архив</label>
+                    <label><input type="radio" name="cover_transfer" value="feed_tag"> В фиде отдельным тегом</label>
+                </div>
+            </div>
+            <!-- Пункт 10 -->
+            <div class="form-group">
+                <label>10. Выбор макета для видео:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="video_layout_choice" value="client"> Макет на стороне заказчика</label>
+                    <label><input type="radio" name="video_layout_choice" value="factory"> Макет на стороне фабрики</label>
+                </div>
+            </div>
+            <!-- Если выбран макет на стороне заказчика -->
+            <div id="videoClientLayout" class="form-group hidden">
+                <label>Ссылка на макет видео:</label>
+                <input type="url" name="video_layout_link" placeholder="https://www.jitter.com/...">
+            </div>
+            <!-- Если выбран макет на стороне фабрики -->
+            <div id="videoFactoryLayout" class="form-group hidden">
+                <label>Техническое задание для видео:</label>
+                <textarea id="videoTechnicalTask" rows="5" placeholder="Опишите анимацию или приложите ссылки на примеры"></textarea>
+            </div>
+            <!-- Пункт 11: Формат видео-обложек -->
+            <div id="videoFormat" class="form-group hidden">
+                <label>11. В каком формате отдавать видео-обложки:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="video_format" value="mp4"> MP4</label>
+                    <label><input type="checkbox" name="video_format" value="webm"> WebM</label>
+                </div>
+            </div>
+            <!-- Способ получения баннеров -->
+            <div class="form-group">
+                <label>11. Способ получения баннеров:</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="delivery_method" value="feed_tag"> 
+                        Добавление в фид тега с ссылками на баннеры
+                    </label>
+                    <label>
+                        <input type="radio" name="delivery_method" value="archive"> 
+                        Отправка архивом (названия папок — ID артикулов)
+                    </label>
+                </div>
+            </div>
+            <!-- Пункт 12: Сроки выполнения -->
+            <div class="form-group">
+                <label>12. Ожидаемые сроки выполнения / актуальные дедлайны:</label>
+                <textarea id="deadlines" name="deadlines" rows="3" required></textarea>
+            </div>
+            <!-- Пункт про формат видео-обложек -->
+            <div id="videoFormat" class="form-group hidden">
+                <label>11. В каком формате отдавать видео-обложки:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="video_format" value="mp4"> MP4</label>
+                    <label><input type="checkbox" name="video_format" value="webm"> WebM</label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Отправить</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

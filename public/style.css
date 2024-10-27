@@ -1,0 +1,375 @@
+body {
+    font-family: 'Manrope', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+.title-banner {
+    width: 100%;
+    max-width: 1200px;
+    height: 400px;
+    margin: 40px auto 60px;
+    background-color: #FFFFFF;
+    background-image: url("Background.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    border-radius: 32px;
+}
+
+.banner-content {
+    position: absolute;
+    left: 60px;
+    bottom: 60px;
+}
+
+.label {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.50);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 99px;
+    padding: 8px 16px;
+    margin-bottom: 8px;
+}
+
+.title-banner h1 {
+    width: 556px;
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    margin: 0;
+    font-family: 'Manrope', sans-serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: #1c1c1c;
+    text-align: left;
+    line-height: 110%;
+}
+
+.container {
+    max-width: 1080px;
+    margin: auto;
+    padding: 20px;
+}
+h1 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 40px;
+    font-size: 48px;
+}
+.form-group {
+    margin-bottom: 30px;
+}
+.form-group label {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.checkbox-group label, .radio-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: #f8f8f8;
+    padding: 12px 18px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-weight: 400;
+}
+
+.checkbox-group label:hover, .radio-group label:hover {
+    background-color: #e6e6e6;
+    border-color: #ccc;
+}
+
+.checkbox-group input:checked + label, .radio-group input:checked + label {
+    background-color: #e6f7ff;
+    border-color: #0070f3;
+    color: #0070f3;
+}
+
+.checkbox-group input, .radio-group input {
+    margin-right: 10px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 8px;
+    padding: 15px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -125px;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.disabled {
+    opacity: 0.6;
+}
+
+/* Allow pointer events on the tooltip within the disabled element */
+.disabled .tooltip {
+    pointer-events: auto;
+}
+
+.info-icon {
+    margin-left: 5px;
+    font-size: 16px;
+    color: #0070f3;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.info-icon:hover {
+    color: #005bb5;
+}
+
+input[type="text"], input[type="url"], textarea, .CodeMirror {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: vertical;
+    font-family: 'Manrope', sans-serif;
+}
+textarea {
+    min-height: 100px;
+}
+.hidden {
+    display: none;
+}
+.submit-btn {
+    display: block;
+    padding: 12px 32px;
+    background-color: #0070f3;
+    color: #fff;
+    border: none;
+    border-radius: 99px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.submit-btn:hover {
+    background-color: #005bb5;
+}
+.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+.note {
+    margin-top: 8px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.note p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.note a {
+    color: #0070f3;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.note a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.dropdown {
+    margin-top: 10px;
+}
+.dropdown select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+/* Styles for collapsible sections */
+.collapsible {
+    background-color: #f1f1f1;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.form-group .collapsible {
+    margin-bottom: 10px;
+}
+
+.note {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px; /* Adjusted margin-top for consistent spacing */
+}
+
+.collapsible:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.active, .collapsible:hover {
+    background-color: #ccc;
+}
+
+.content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #f9f9f9;
+}
+
+.content p {
+    margin: 15px 0;
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .checkbox-group label, .radio-group label {
+        width: 100%;
+    }
+}
+
+.form-group .collapsible + input[type="url"],
+.form-group .collapsible + input[type="text"] {
+    margin-top: 10px;
+}
+
+.note > .content {
+    transition: max-height 0.3s ease-out;
+    overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+    .title-banner {
+        height: auto;
+        min-height: 300px;
+    }
+
+    .title-banner h1 {
+        width: auto;
+        max-width: 90%;
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 600px) {
+    .checkbox-group label, .radio-group label {
+        width: 100%;
+    }
+
+    .title-banner h1 {
+        font-size: 28px;
+    }
+}
+
+.checkbox-group label.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.checkbox-group label.disabled input {
+    pointer-events: none;
+}
+
+.tag-pair {
+    margin-bottom: 10px;
+}
+
+.tag-inputs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tag-inputs input {
+    flex: 1;
+}
+
+.add-pair-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+.add-pair-btn:hover {
+    background-color: #e0e0e0;
+}
+
+textarea#deadlines {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 80px;
+}
+
+textarea#deadlines:focus {
+    outline: none;
+    border-color: #0070f3;
+    box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.1);
+}
