@@ -61,7 +61,7 @@ const platformTasks = {
 — характеристики товара: УТП 1, УТП 2...
 3. Пожелания клиента к дизайну: яркий фон, шрифт Manrope...
 4. Референсы: ссылка 1, ссылка 2...
-5. Предыдущие варианты дизайна для бренда, если они есть. Описание того, что в них нравится, а что — не очень`,
+5. Предыдущие варианты дизайна для бренда, если они есть. Описание того, что в них нравится, а чо — не очень`,
     'wildberries': `#wildberries:
 1. Размер баннера: 900х1200px (3:4).
 2. Разместить на баннере:
@@ -81,7 +81,7 @@ const platformTasks = {
 — ключевые характеристики товара: УТП 1, УТП 2...
 3. Пожелания клиента к дизайну: соответствие фирменному стилю сайта, шрифт Manrope...
 4. Референсы: ссылка 1, ссылка 2...
-5. Предыдущие варианты дизайна для бренда, если они есть. Описание тог��, что в них нравится, а что — не очень`
+5. Предыдущие варианты дизайна для бренда, если они есть. Описание тог, что в них нравится, а что — не очень`
 };
 
 function initializeEasyMDE() {
@@ -96,17 +96,49 @@ function initializeEasyMDE() {
     }
 }
 
-function updateVideoBannerOption() {
+function updateGraphicsTypeSelection() {
     const selectedPlatforms = Array.from(platformCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
-    const isGalleryOrWildberriesSelected = selectedPlatforms.includes('gallery') || selectedPlatforms.includes('wildberries');
-    if (isGalleryOrWildberriesSelected) {
-        videoCheckbox.disabled = true;
-        videoCheckbox.checked = false;
-        videoBannerOption.classList.add('disabled');
+    const staticCheckbox = document.querySelector('input[name="graphics_type"][value="static"]');
+    
+    // Проверяем, есть ли выбранные площадки помимо Gallery и Wildberries
+    const hasOtherPlatforms = selectedPlatforms.some(platform => 
+        !['gallery', 'wildberries'].includes(platform)
+    );
+    
+    // Проверяем, выбрана ли ТОЛЬКО Gallery или Wildberries
+    const hasOnlyGalleryOrWildberries = selectedPlatforms.every(platform => 
+        ['gallery', 'wildberries'].includes(platform)
+    );
+    
+    if (selectedPlatforms.length > 0) {
+        // Если выбрана хотя бы одна площадка, отмечаем статичные баннеры
+        staticCheckbox.checked = true;
+        
+        if (hasOnlyGalleryOrWildberries) {
+            // Если выбраны ТОЛЬКО Gallery или Wildberries
+            videoCheckbox.checked = false;
+            videoCheckbox.disabled = true;
+            videoBannerOption.classList.add('disabled');
+        } else {
+            // Если выбраны другие площадки (возможно, вместе с Gallery/Wildberries)
+            videoCheckbox.disabled = false;
+            videoBannerOption.classList.remove('disabled');
+            
+            // Автоматически отмечаем видео-баннеры только если есть другие площадки
+            if (hasOtherPlatforms) {
+                videoCheckbox.checked = true;
+            }
+        }
     } else {
+        // Если не выбрана ни одна площадка
+        staticCheckbox.checked = false;
+        videoCheckbox.checked = false;
         videoCheckbox.disabled = false;
         videoBannerOption.classList.remove('disabled');
     }
+
+    // Обновляем отображение формата видео
+    updateGraphicsType();
 }
 
 function updateBannerSizes() {
@@ -276,11 +308,11 @@ for (let i = 0; i < collapsibles.length; i++) {
 }
 
 platformCheckboxes.forEach(cb => cb.addEventListener('change', () => {
-    updateGraphicsType();
+    updateGraphicsTypeSelection(); // Заменяем updateVideoBannerOption на updateGraphicsTypeSelection
     updateBannerSizes();
     toggleCoverDelivery();
     updateTechnicalTask();
-    updateDeliveryMethod(); // Добавляем новый вызов
+    updateDeliveryMethod();
 }));
 
 dataSourceInput.addEventListener('input', toggleTagAndProductSelection);
@@ -311,7 +343,7 @@ videoLayoutChoiceRadios.forEach(rb => rb.addEventListener('change', toggleVideoL
 // Инициализация формы
 document.addEventListener('DOMContentLoaded', function() {
     initializeEasyMDE();
-    updateVideoBannerOption();
+    updateGraphicsTypeSelection();
     updateBannerSizes();
     updateGraphicsType(); // Добавлен вызов функции
     toggleTagAndProductSelection();
@@ -404,3 +436,4 @@ document.getElementById('orderForm').addEventListener('submit', function (e) {
         alert('Произошла ошибка при отправке данных, попробуйте снова.');
     });    
 });
+
